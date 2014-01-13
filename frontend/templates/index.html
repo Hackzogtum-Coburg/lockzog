@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>lockzog Door Manager</title>
+    <script type="text/javascript" src='{% static "services.js" %}'></script>
+    <link rel="stylesheet" type="text/css" href='{% static "index.css" %}' />
+</head>
+    <body>
+        <div id="status">Use this to display information whether the action succeeded or not.</div>
+
+        <h1>Welcome to the Hackzogtum Coburg Door Manager</h1>
+
+        <!-- We actually want ajax, so that we can stay on this page -->
+        <!--  -->
+        <form name="open" action="api/door" method="post">
+            <input type="hidden" name="action" value="open">
+            <input type="submit" value="Open door!">
+        </form>
+        <form name="close" action="api/door" method="post">
+            <input type="hidden" name="action" value="close">
+            <input type="submit" value="Close door!">
+        </form>
+    </body>
+</html>
