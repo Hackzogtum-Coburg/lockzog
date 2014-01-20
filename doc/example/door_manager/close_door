@@ -1,0 +1,5 @@
+#!/bin/sh
+
+BIN_PATH=`dirname $0`
+
+$BIN_PATH/door_manager -c
