@@ -1,4 +1,4 @@
-CFLAGS = -Wall -O2 -std=c99
+CFLAGS = -Wall -O2 -fstack-protector-all -D_FORTIFY_SOURCE=2 -std=c99
 
 
 prefix = /usr/local
