@@ -22,8 +22,8 @@ int setPin(unsigned char pin, bool value)
     }
     
     fclose(pinf);
-    // return result of the operation
-    return result;
+    // return result of the operation (result is 1 if things went ok)
+    return ! result;
   } else {
     // error opening file
     return 1;
