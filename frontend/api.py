@@ -14,8 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import os
 
-from os import environ
 from django.http.response import HttpResponse
 from frontend.certificate import CertificateWrapper
 from frontend.events import manager
@@ -26,7 +26,7 @@ def door(request):
     # PUT is the right verb, but quite problematic in pure django, so use post for now
     # Consider rewriting the code with http://django-tastypie.readthedocs.org/en/latest/
     if request.method == "POST":
-        return prepare_action(request.POST.get('action', ''))
+        return prepare_action(request.POST.get('action', ''), request.environ)
     else:
         return HttpResponse("Wrong HTTP method!")
 
@@ -36,7 +36,7 @@ action_funs = {
 }
 
 
-def prepare_action(action):
+def prepare_action(action, environ):
     action_fun = None
     try:
         action_fun = action_funs[action]
@@ -54,12 +54,13 @@ def prepare_action(action):
 def process_action(action, action_fun, certificate):
     # execute pre handlers
     if not manager.dispatchPreHandlers():
-        return HttpResponse("Not all logic handlers provided positive results!")
+        return HttpResponse("Not all preprocess logic handlers provided positive results!")
     # execute event
     # TODO: evaluate result
-    action_fun()
+    if not action_fun() == 0:
+        return HttpResponse("Execution of the action yielded an error.")
     # execute post handlers
     if not manager.dispatchPostHandlers():
-        return HttpResponse("Not all logic handlers provided positive results!")
+        return HttpResponse("Not all postprocess logic handlers provided positive results!")
 
     return HttpResponse("User " + certificate.subject_name() + " performed " + action + " with the door!")
