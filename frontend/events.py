@@ -51,9 +51,12 @@ class EventManager():
     def dispatchPreHandlers(self):
         # TODO: implement
         pass
+        return True
 
     def dispatchPostHandlers(self):
         # TODO: implement
         pass
+        return True
+
 
 manager = EventManager()
