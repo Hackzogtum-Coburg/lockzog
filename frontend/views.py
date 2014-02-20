@@ -20,4 +20,8 @@ from django.shortcuts import render
 
 def index(request):
     context = {}
-    return render(request, 'index.html', context)
+    return render(request, 'welcome.html', context)
+
+def controlPanel(request):
+    context = {}
+    return render(request, 'control-panel.html', context)

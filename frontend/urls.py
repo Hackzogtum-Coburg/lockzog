@@ -21,5 +21,6 @@ from frontend import views, api
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
+    url(r'^control-panel$', views.controlPanel, name='controlPanel'),
     url(r'^api/door$', api.door, name='door'),
 )
