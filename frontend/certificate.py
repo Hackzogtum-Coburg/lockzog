@@ -20,8 +20,11 @@ from OpenSSL.crypto import *
 
 class CertificateWrapper():
     def __init__(self, pem_encoded_cert):
-        self.pem_encoded_cert = pem_encoded_cert
-        self.cert = load_certificate(FILETYPE_PEM, pem_encoded_cert)
+        try:
+            self.pem_encoded_cert = pem_encoded_cert
+            self.cert = load_certificate(FILETYPE_PEM, pem_encoded_cert)
+        except Error:
+            raise KeyError
 
     def subject(self):
         tuples = X509.get_subject(self.cert).get_components()
