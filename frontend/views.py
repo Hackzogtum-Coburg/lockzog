@@ -15,12 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from frontend.certificate import CertificateWrapper
 
 
 def index(request):
-    context = {}
-    return render(request, 'welcome.html', context)
+    try:
+        client_cert_pem = request.environ['SSL_CLIENT_CERT']
+        client_cert = CertificateWrapper(client_cert_pem)
+        # no error here means the certificate is ok
+        return HttpResponseRedirect("control-panel")
+    except KeyError:
+        context = {}
+        return render(request, 'welcome.html', context)
 
 def controlPanel(request):
     context = {}
