@@ -14,12 +14,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import os
 
 from django.http.response import HttpResponse
 from frontend.certificate import CertificateWrapper
-from frontend.events import manager
+from frontend.events import EventMessage, EventType
 from frontend.door import *
+from frontend.events_impl import manager
 
 
 def door(request):
@@ -30,9 +30,15 @@ def door(request):
     else:
         return HttpResponse("Wrong HTTP method!")
 
+
 action_funs = {
     "open":  open_door,
     "close": close_door
+}
+
+action_type = {
+    "open":  EventType.OPEN,
+    "close": EventType.CLOSE
 }
 
 
@@ -52,15 +58,17 @@ def prepare_action(action, environ):
 
 
 def process_action(action, action_fun, certificate):
+    event_type = action_type[action]
+    event_msg = EventMessage(event_type, certificate)
     # execute pre handlers
-    if not manager.dispatchPreHandlers():
+    if not manager.dispatchPreHandlers(event_msg):
         return HttpResponse("Not all preprocess logic handlers provided positive results!")
     # execute event
     # TODO: evaluate result
     if not action_fun() == 0:
         return HttpResponse("Execution of the action yielded an error.")
     # execute post handlers
-    if not manager.dispatchPostHandlers():
+    if not manager.dispatchPostHandlers(event_msg):
         return HttpResponse("Not all postprocess logic handlers provided positive results!")
 
     return HttpResponse("User " + certificate.subject_name() + " performed " + action + " with the door!")

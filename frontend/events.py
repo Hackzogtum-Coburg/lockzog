@@ -20,7 +20,7 @@ import abc
 
 class EventHandler(metaclass = abc.ABCMeta):
     @abc.abstractmethod
-    def handle(self, eventMessage):
+    def handle(self, event_message):
         pass
 
     @abc.abstractmethod
@@ -33,30 +33,37 @@ class EventHandler(metaclass = abc.ABCMeta):
 
 
 class EventType():
-    OPEN = 1
+    OPEN  = 1
     CLOSE = 2
 
 
 class EventMessage():
-    def __init__(self, eventType, certificate):
-        self.eventType = eventType
+    def __init__(self, event_type, certificate):
+        self.event_type = event_type
         self.certificate = certificate
 
 
 class EventManager():
     def __init__(self):
-        # TODO: implement
-        pass
+        self.pre_handlers  = []
+        self.post_handlers = []
 
-    def dispatchPreHandlers(self):
-        # TODO: implement
-        pass
+    def add_handler(self, handler):
+        if handler.isPre():
+            self.pre_handlers.append(handler)
+        elif handler.isPost():
+            self.post_handlers.append(handler)
+
+    def dispatchPreHandlers(self, event_msg):
+        for next in self.pre_handlers:
+            result = next.handle(event_msg)
+            if (result == False):
+                return False
         return True
 
-    def dispatchPostHandlers(self):
-        # TODO: implement
-        pass
+    def dispatchPostHandlers(self, event_msg):
+        for next in self.post_handlers:
+            result = next.handle(event_msg)
+            if (result == False):
+                return False
         return True
-
-
-manager = EventManager()

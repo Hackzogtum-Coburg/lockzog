@@ -1,5 +1,5 @@
 from django.contrib import admin
-from frontend.models import Operation
+#from frontend.handlers.actionlog import ActionLog
 
 
-admin.site.register(Operation)
+#admin.site.register(ActionLog)
