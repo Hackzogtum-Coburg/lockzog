@@ -31,7 +31,7 @@ function handler() {
     console.info(body);
     var status = document.getElementById("status");
     status.innerHTML = body;
-    status.className = "info";
+    status.className = "alert alert-info";
 }
 
 function send_message(action) {

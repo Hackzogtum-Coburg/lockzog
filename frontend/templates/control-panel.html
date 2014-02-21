@@ -2,18 +2,30 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>lockzog Door Manager</title>
-    <script type="text/javascript" src='{% static "services.js" %}'></script>
-    <link rel="stylesheet" type="text/css" href='{% static "lockzog.css" %}' />
-</head>
-    <body>
-        <div id="status" class="hidden">Use this to display information whether the action succeeded or not.</div>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>lockzog Door Manager</title>
+        <script type="text/javascript" src='{% static "services.js" %}'></script>
+        <link rel="stylesheet" type="text/css" href='{% static "bootstrap/css/bootstrap.min.css" %}' />
+        <link rel="stylesheet" type="text/css" href='{% static "bootstrap/css/bootstrap-theme.min.css" %}' />
+        <link rel="stylesheet" type="text/css" href='{% static "lockzog.css" %}' />
+    </head>
+    <body class="container" role="document">
+        <div class="jumbotron">
+            <div id="status" class="hidden">Use this to display information whether the action succeeded or not.</div>
 
-        <h1>Welcome to the Hackzogtum Coburg Door Manager</h1>
+            <h1>Welcome!</h1>
+            <p>This is the Door Manager of Hackzogtum Coburg e.V.</p>
 
-        <button onclick="send_open()">Open Door</button>
-        <button onclick="send_close()">Close Door</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-lg btn-success" onclick="send_open()">Open Door</button>
+                <button type="button" class="btn btn-lg btn-danger" onclick="send_close()">Close Door</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; Hackzogtum Coburg e.V. 2014</p>
+        </div>
     </body>
 </html>

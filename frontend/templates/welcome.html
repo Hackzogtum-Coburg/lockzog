@@ -2,14 +2,22 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>lockzog Door Manager</title>
-    <script type="text/javascript" src='{% static "services.js" %}'></script>
-    <link rel="stylesheet" type="text/css" href='{% static "lockzog.css" %}' />
-</head>
-    <body>
-        <h1>Welcome to the Hackzogtum Coburg Door Manager</h1>
-        <p>You are not authenticated. Please provide a valid certificate, or ask the operators to obtain one.</p>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>lockzog Door Manager</title>
+        <link rel="stylesheet" type="text/css" href='{% static "bootstrap/css/bootstrap.min.css" %}' />
+        <link rel="stylesheet" type="text/css" href='{% static "bootstrap/css/bootstrap-theme.min.css" %}' />
+        <link rel="stylesheet" type="text/css" href='{% static "lockzog.css" %}' />
+    </head>
+    <body class="container" role="document">
+        <div class="jumbotron">
+            <h1>Welcome!</h1>
+            <div class="alert alert-danger">You are not authenticated. Please provide a valid certificate, or ask the operators to obtain one.</div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; Hackzogtum Coburg e.V. 2014</p>
+        </div>
     </body>
 </html>
