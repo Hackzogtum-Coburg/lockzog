@@ -19,5 +19,26 @@
 
 
 function send_open() {
+    send_message("open");
+}
 
-};
+function send_close() {
+    send_message("close");
+}
+
+function handler() {
+    var body = this.responseText;
+    console.info(body);
+    var status = document.getElementById("status");
+    status.innerHTML = body;
+    status.className = "info";
+}
+
+function send_message(action) {
+    var req = new XMLHttpRequest();
+    req.open("POST", "api/door");
+    req.addEventListener("loadend", handler);
+    var data = new FormData();
+    data.append("action", action);
+    req.send(data);
+}

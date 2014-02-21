@@ -64,7 +64,6 @@ def process_action(action, action_fun, certificate):
     if not manager.dispatchPreHandlers(event_msg):
         return HttpResponse("Not all preprocess logic handlers provided positive results!")
     # execute event
-    # TODO: evaluate result
     if not action_fun() == 0:
         return HttpResponse("Execution of the action yielded an error.")
     # execute post handlers

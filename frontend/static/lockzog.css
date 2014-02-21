@@ -18,6 +18,18 @@
  ****************************************************************************/
 
 
-div#status {
+.hidden {
     display: none;
+}
+
+div#status {
+    // general style of the info field
+}
+
+div#status.info {
+    // some kind of blue color
+}
+
+div#status.error {
+    // some kind of red color
 }
