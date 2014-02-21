@@ -20,3 +20,4 @@ from frontend.handlers.actionlog import ActionLogger
 
 
 manager = EventManager()
+manager.add_handler(ActionLogger())

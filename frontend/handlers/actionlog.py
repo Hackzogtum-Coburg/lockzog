@@ -15,15 +15,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from frontend.events import EventHandler
-
+from frontend.events import EventHandler, EventType
+from frontend.models import ActionLog
 
 class ActionLogger(EventHandler):
-    def handle(self, eventMessage):
-        pass
+    def handle(self, event_msg):
+        event_type = event_msg.event_type
+        if event_type == EventType.OPEN:
+            action = "open"
+        else:
+            action = "close"
+        cert = event_msg.certificate
+        email = cert.subject_email()
+        name = cert.subject_name()
+
+        entry = ActionLog();
+        entry.email = email
+        entry.name = name
+        entry.action = action
+        entry.save()
 
     def isPre(self):
-        pass
+        return False
 
     def isPost(self):
-        pass
+        return True

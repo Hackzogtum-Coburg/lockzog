@@ -19,12 +19,12 @@ from datetime import datetime
 from django.db import models
 
 
-class Operation(models.Model):
+class ActionLog(models.Model):
 
     email = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     action = models.CharField(max_length=5)
-    time = models.DateTimeField(default=datetime.now(), primary_key=True)
+    time = models.DateTimeField(default=datetime.now, primary_key=True)
 
     def __str__(self):
         return self.time.__str__() + " > " + self.name + " performed action " + self.action
