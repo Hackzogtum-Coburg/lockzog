@@ -20,4 +20,4 @@ from lockzog.event_cfg import load_config
 
 
 manager = EventManager()
-load_config()
+load_config(manager)
