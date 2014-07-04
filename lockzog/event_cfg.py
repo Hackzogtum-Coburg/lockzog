@@ -15,9 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from frontend.events import EventManager
-from lockzog.event_cfg import load_config
+from frontend.events_impl import manager
+from frontend.handlers.actionlog import ActionLogger
 
 
-manager = EventManager()
-load_config()
+def load_config():
+    # comment out everything you don't need
+    manager.add_handler(ActionLogger())
+    pass
