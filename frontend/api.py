@@ -26,8 +26,10 @@ def door(request):
     # PUT is the right verb, but quite problematic in pure django, so use post for now
     # Consider rewriting the code with http://django-tastypie.readthedocs.org/en/latest/
     # GET is there to make it possible to call the URL with NFC tags
-    if request.method == "POST" or request.method == "GET":
+    if request.method == "POST":
         return prepare_action(request.POST.get('action', ''), request.environ)
+    elif request.method == "GET":
+        return prepare_action(request.GET.get('action', ''), request.environ)
     else:
         return HttpResponse("Wrong HTTP method!")
 
